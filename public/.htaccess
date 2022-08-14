@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine on
+
+RewriteRule  ^(.*)$ navigator.php?nav=$1&%{QUERY_STRING} [NC]

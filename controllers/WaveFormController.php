@@ -1,14 +1,12 @@
 <?php
-
+include('../models/WaveParse.php');
+include('../audio/customer-channel.txt');
+include('../audio/user-channel.txt');
 /**
  * Class WaveParse parses the file for channel.txt.
  */
-class WaveFormController extends Controller
+class WaveFormController
 {
-
-    /**
-     * @throws Exception
-     */
     public function Wave()
     {
         $customer = new WaveParse();

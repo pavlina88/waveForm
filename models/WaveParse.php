@@ -1,4 +1,6 @@
 <?php
+include('../audio/customer-channel.txt');
+include('../audio/user-channel.txt');
 /**
  * Class WaveParse parses the file for channel.txt.
  */
@@ -7,12 +9,7 @@ class WaveParse
     /** @var string The parsing file name */
     protected $fileName = '';
     /** @var string */
-    protected $fileDir = 'audio';
-    /** @var string */
-    protected $columnSeparator = '|';
-    /** @var bool|int How many rows to parse before stopping */
-    protected $limit = false;
-
+    protected $fileDir = '../audio';
     /**
      * Sets the file name of the file to be parsed.
      *
@@ -20,13 +17,9 @@ class WaveParse
      *
      * @throws Exception
      */
-    public function setFileName(string $fileName)
+    public function setFileName(string $fileName): void
     {
         $this->fileName = dirname(__FILE__) . DIRECTORY_SEPARATOR . $this->fileDir . DIRECTORY_SEPARATOR . $fileName;
-
-        if (!file_exists($this->fileName)) {
-            throw new Exception('Parsing file cannot be found: ' . $this->fileName);
-        }
     }
 
 
@@ -34,7 +27,7 @@ class WaveParse
      * Gets the file data.
      * @return array
      */
-    public function getFileData()
+    public function getFileData(): array
     {
         $file = fopen($this->fileName, "r") or die("Unable to open file!");
 
@@ -58,10 +51,11 @@ class WaveParse
     }
 
     /**
-     * @param $array
+     * @param array $array
+     *
      * @return mixed
      */
-    public function calculateDuration($array = [])
+    public function calculateDuration(array $array = []): mixed
     {
         $talkDuration = [];
         foreach ($array as $item) {
@@ -73,11 +67,13 @@ class WaveParse
 
     /**
      * Calculate User Talk in Percentage from the file data.
-     * @param $userArray
-     * @param $customerArray
+     *
+     * @param array $userArray
+     * @param array $customerArray
+     *
      * @return float
      */
-    public function calculatePercentage($userArray = [], $customerArray = [])
+    public function calculatePercentage(array $userArray = [], array $customerArray = []): float
     {
         $userMonolog = $customerMonolog = 0;
         foreach ($userArray as $item) {
